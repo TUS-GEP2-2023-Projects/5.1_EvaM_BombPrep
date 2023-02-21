@@ -24,11 +24,11 @@ public class BombController : MonoBehaviour
         {
            
             StartCoroutine("FadeCoroutine");
-            
+            BombAN.SetBool("Boom", true);
         }
     if (BombArmed == true)
         {
-            thePoint.forceMagnitude = 500;
+            thePoint.forceMagnitude = 5000;
         }
     }
 private IEnumerator FadeCoroutine() { 
@@ -36,7 +36,6 @@ private IEnumerator FadeCoroutine() {
         Color c = spriteRenderer.color;
             c.a = f;
             spriteRenderer.color = c;
-            BombAN.SetBool("Boom", true);
             yield return new WaitForSeconds(1f);
 
             
