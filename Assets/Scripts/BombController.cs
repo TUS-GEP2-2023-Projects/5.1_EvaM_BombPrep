@@ -10,8 +10,9 @@ public class BombController : MonoBehaviour
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        BombAN = GetComponent<Animator>();
         BombAN.Play("Idle");
-           BombAN.GetBool "Boom" = false;
+           BombAN.SetBool("Boom", false);
     }
 
     // Update is called once per frame
@@ -30,7 +31,7 @@ private IEnumerator FadeCoroutine() {
         Color c = spriteRenderer.color;
             c.a = f;
             spriteRenderer.color = c;
-            BombAN.Boom = true;
+            BombAN.SetBool("Boom", true);
             yield return new WaitForSeconds(1f);
 
             
