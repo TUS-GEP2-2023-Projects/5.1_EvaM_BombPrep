@@ -5,7 +5,8 @@ using UnityEngine;
 public class BombController : MonoBehaviour
 { private SpriteRenderer spriteRenderer;
     public Animator BombAN;
- 
+    public bool BombArmed;
+    public PointEffector2D thePoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +14,7 @@ public class BombController : MonoBehaviour
         BombAN = GetComponent<Animator>();
         BombAN.Play("Idle");
            BombAN.SetBool("Boom", false);
+        BombArmed = false;
     }
 
     // Update is called once per frame
@@ -24,7 +26,10 @@ public class BombController : MonoBehaviour
             StartCoroutine("FadeCoroutine");
             
         }
-    
+    if (BombArmed == true)
+        {
+            thePoint.forceMagnitude = 500;
+        }
     }
 private IEnumerator FadeCoroutine() { 
         for (float f = 1; f >= 0; f -= 0.1f){
@@ -46,6 +51,9 @@ private IEnumerator FadeCoroutine() {
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (Collision2D) { }
+        if (collision.gameObject.name == "Character" && BombAN == true) {
+            BombArmed = true;
+        }
     }
+
 }
