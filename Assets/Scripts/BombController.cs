@@ -13,34 +13,29 @@ public class BombController : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         BombAN = GetComponent<Animator>();
         BombAN.Play("Idle");
-           BombAN.SetBool("Boom", false);
+        BombAN.SetBool("Boom", false);
         BombArmed = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("w"))
-        {
-           
-            StartCoroutine("FadeCoroutine");
-            BombAN.SetBool("Boom", true);
-        }
     if (BombArmed == true)
         {
-            thePoint.forceMagnitude = 5000;
-        }
+            StartCoroutine("FadeCoroutine");
+        } 
     }
 private IEnumerator FadeCoroutine() { 
         for (float f = 1; f >= 0; f -= 0.1f){
         Color c = spriteRenderer.color;
             c.a = f;
             spriteRenderer.color = c;
-            yield return new WaitForSeconds(1f);
-
-            
+            yield return new WaitForSeconds(0.3f);   
         }
-        ResetSpriteRenderer();
+         thePoint.forceMagnitude = 1000;           
+        BombAN.SetBool("Boom", true);
+        BombArmed = false;
     }
     void ResetSpriteRenderer()
     {
@@ -50,7 +45,7 @@ private IEnumerator FadeCoroutine() {
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Character" && BombAN == true) {
+        if (collision.gameObject.name == "Character") {
             BombArmed = true;
         }
     }
