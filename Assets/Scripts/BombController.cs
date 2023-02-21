@@ -5,11 +5,13 @@ using UnityEngine;
 public class BombController : MonoBehaviour
 { private SpriteRenderer spriteRenderer;
     public Animator BombAN;
+ 
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         BombAN.Play("Idle");
+           BombAN.GetBool "Boom" = false;
     }
 
     // Update is called once per frame
@@ -28,7 +30,7 @@ private IEnumerator FadeCoroutine() {
         Color c = spriteRenderer.color;
             c.a = f;
             spriteRenderer.color = c;
-         BombAN.Play("Bomb");
+            BombAN.Boom = true;
             yield return new WaitForSeconds(1f);
 
             
@@ -41,5 +43,8 @@ private IEnumerator FadeCoroutine() {
         c.a = 1f;
         spriteRenderer.color = c;
     }
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (Collision2D) { }
+    }
 }
