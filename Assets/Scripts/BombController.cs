@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class BombController : MonoBehaviour
 { private SpriteRenderer spriteRenderer;
+    public Animator BombAN;
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        BombAN.Play("Idle");
     }
 
     // Update is called once per frame
@@ -15,7 +17,9 @@ public class BombController : MonoBehaviour
     {
         if (Input.GetKeyDown("w"))
         {
+           
             StartCoroutine("FadeCoroutine");
+            
         }
     
     }
@@ -24,11 +28,12 @@ private IEnumerator FadeCoroutine() {
         Color c = spriteRenderer.color;
             c.a = f;
             spriteRenderer.color = c;
-         
-            yield return new WaitForSeconds(5f);
+         BombAN.Play("Bomb");
+            yield return new WaitForSeconds(1f);
 
-            ResetSpriteRenderer();
+            
         }
+        ResetSpriteRenderer();
     }
     void ResetSpriteRenderer()
     {
